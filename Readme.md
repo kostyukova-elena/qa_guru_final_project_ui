@@ -36,10 +36,9 @@
 ## Примеры автотестов
 -  Тест для проверки строки поиска на сайте
 -  Тест на проверку добавления товара в корзину
--  
--  
--  
-
+-  Смена региона доставки
+-  Тест на проверку удаления товара из корзины
+-  Тест для проверки поиска с фильтром на сайте
 
 
 ##  Локальный запуск тестов в Idea
@@ -54,6 +53,10 @@ gradle clean tests_test
 
 
 ## Allure Report
+<p align="center">  
+<img title="Allure TestOps Dashboard" src="files/images/AllureReportUI_1.jpg" width="791">
+<img title="Allure TestOps Dashboard" src="files/images/AllureReportUI_2.jpg" width="791">  
+</p>  
 
 ## Уведомления о результатах тестов в Telegram
 

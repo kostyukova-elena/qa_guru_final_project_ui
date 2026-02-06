@@ -16,8 +16,8 @@ public class ResultComponent {
     private final ElementsCollection productCardNames = $$(".UiProductTileMain_longName__29CCd");
     private final SelenideElement cartIcon = $(".CartIcon_iconLink__XS94m.CartIcon_icon__qMnvp");
     private final ElementsCollection productItem = $$(".ProductItem_productCard__w8b6e");
-
-
+    private final SelenideElement deliveryRegion = $(".UiHeaderHorizontalBase_region__2ODCG");
+    private final SelenideElement emptyPosition = $(".EmptyPositionList_content__7eaUL");
 
 
     public ResultComponent shouldBe() {
@@ -37,6 +37,16 @@ public class ResultComponent {
 
     public ResultComponent productItemCards(String value) {
         productItem.first().shouldHave(text(value));
+        return this;
+    }
+
+    public ResultComponent shouldContainRegionText(String value) {
+        deliveryRegion.shouldHave(text(value));
+        return this;
+    }
+
+    public ResultComponent verifyCartIsEmpty(String value) {
+        emptyPosition.shouldHave(text(value));
         return this;
     }
 }

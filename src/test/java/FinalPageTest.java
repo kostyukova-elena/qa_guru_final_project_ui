@@ -34,9 +34,6 @@ public class FinalPageTest extends TestBase {
 
         step("Проверяем результат", () -> {
             resultComponent.shouldBe();
-        });
-
-        step("Проверяем результат", () -> {
             resultComponent.findInCards("Сливки");
         });
     }
@@ -81,6 +78,117 @@ public class FinalPageTest extends TestBase {
             resultComponent.productItemCards("Шоколад");
         });
     }
+
+    @Test
+    @DisplayName("Смена региона доставки")
+    void shouldChangeRegion() {
+        step("Открываем главную страницу", () -> {
+            finalPage.openPage("https://www.vprok.ru/");
+        });
+
+        step("Открыть выбор региона", () -> {
+            finalPage.openTheRegionSelection();
+        });
+
+        step("Выбрать новый регион региона", () -> {
+            finalPage.chooseDifferentRegion("Калужская обл.");
+        });
+
+        step("Проверяем результат", () -> {
+            resultComponent.shouldContainRegionText("Калужская обл.");
+        });
+    }
+
+    @Test
+    @DisplayName("Тест на проверку удаления товара из корзины")
+    void deletingFromCart() {
+        step("Открываем главную страницу", () -> {
+            finalPage.openPage("https://www.vprok.ru/");
+        });
+
+        step("Кликаем по полю поиска", () -> {
+            finalPage.setInputSearch();
+        });
+
+        step("Вводим слово для поиска Шоколад", () -> {
+            finalPage.sharedInputSearch("Шоколад");
+        });
+
+        step("Кликаем по кнопке Найти", () -> {
+            finalPage.setSharedInputSearch();
+        });
+
+        step("Закрываем банер с куки", () -> {
+            finalPage.acceptCookies();
+        });
+
+        step("Добавляем товар в корзину", () -> {
+            finalPage.setAddingProduct();
+        });
+
+        step("Указываем адрес доставки", () -> {
+            finalPage.setInputAddress("г.Москва, улица Петровка");
+            finalPage.setInputFlat("15");
+            finalPage.setInputEntrance("2");
+            finalPage.setInputFloor("9");
+            finalPage.setAddressButton();
+        });
+
+        step("Открываем корзину", () -> {
+            finalPage.openTheShoppingCart();//открываем корзину
+        });
+
+        step("Закрываем модальное окно", () -> {
+            finalPage.modalCheckout();
+        });
+
+        step("Удаляем товар из корзины", () -> {
+            finalPage.deleteProduct("Удалить"); //удаление товара
+        });
+
+        step("Закрываем подтверждение об удалении товара", () -> {
+            finalPage.deleteContentScroll("Да, удалить");
+        });
+
+        step("Проверяем результат", () -> {
+            resultComponent.verifyCartIsEmpty("В вашей корзине пока нет товаров");
+        });
+    }
+
+
+    @Test
+    @DisplayName("Тест для проверки поиска с фильтром на сайте")
+    void productSearchFilter() {
+        step("Открываем главную страницу", () -> {
+            finalPage.openPage("https://www.vprok.ru/");
+        });
+
+        step("Кликаем по полю поиска", () -> {
+            finalPage.setInputSearch();
+        });
+
+        step("Вводим слово для поиска Орехи", () -> {
+            finalPage.sharedInputSearch("Орехи");
+        });
+
+        step("Кликаем по кнопке Найти", () -> {
+            finalPage.setSharedInputSearch();
+        });
+
+        step("Выбираем вид орехов", () -> {
+            finalPage.typeOfNuts("Грецкий");
+        });
+
+        step("Выбираем бренд", () -> {
+            finalPage.choosingBrand("Семушка");
+        });
+
+        step("Проверяем результат", () -> {
+            resultComponent.shouldBe();
+            resultComponent.findInCards("Грецкий орех Семушка");
+        });
+    }
 }
+
 
 

@@ -1,14 +1,16 @@
 package pages;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 
-import java.time.Duration;
-
+import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.sleep;
 
 public class FinalPage {
 
@@ -23,6 +25,19 @@ public class FinalPage {
     private final SelenideElement inputEntrance = $("input[name='entrance']");
     private final SelenideElement inputFloor = $("input[name='floor']");
     private final SelenideElement saveTheAddressButton = $(".DeliveryForm_button__SmNjH");
+    private final SelenideElement regionTextButton = $(".Region_text__Wm7FO");
+    private final SelenideElement regionModal = $("[data-floating-ui-portal]");
+    private final SelenideElement modal = $(".UiRegionListBase_root__Z4_yT");
+    private final ElementsCollection regionListBaseButton = $$("button.UiRegionListBase_button__smgMH");
+    private final SelenideElement shoppingCart = $(".CartIcon_iconLink__XS94m.CartIcon_icon__qMnvp");
+    private final SelenideElement modalCheckoutBody = $("body");
+    private final SelenideElement modalDelete = $(".PackageContainer_productListTitle__SfEFl");
+    private final ElementsCollection packageContainerDelete = $$("button.PackageContainer_deleteAll__AT8ml");
+    private final SelenideElement modalContentScroll = $(".UiSharedDialogBase_modal__ZWXbc");
+    private final SelenideElement buttonTextDelete = $(".Button_button__uHbCf.Button_size_L__CGBpF.OutlineButton_outline__JK_YC.OutlineButton_color_primary___NYOX.Button_fullWidth__7B9ua.Button_withText__7ypqP");
+    private final ElementsCollection checkboxSeoLinkNuts = $$(".CheckboxList_labelText__uTSmD");
+    private final SelenideElement checkboxList = $(".CheckboxList_root__f63Tu");
+    private final ElementsCollection choosingSeoLinkBrand = $$(".CheckboxList_name__yTe_0");
 
 
     public FinalPage openPage(String address) {
@@ -42,6 +57,7 @@ public class FinalPage {
 
     public FinalPage setSharedInputSearch() {
         sharedInputSearch.shouldBe(visible).click();
+        sleep(2000);
         return this;
     }
 
@@ -60,7 +76,7 @@ public class FinalPage {
 
     public FinalPage setInputAddress(String value) {
         inputAddress.setValue(value);
-        suggestionsContainer.shouldBe(visible, Duration.ofSeconds(3));
+        suggestionsContainer.shouldBe(visible);
         suggestionsContainer.$(byXpath(".//li[contains(text(), 'Москва')]")).click();
         return this;
     }
@@ -85,6 +101,64 @@ public class FinalPage {
         return this;
     }
 
+    public FinalPage openTheRegionSelection() {
+        regionTextButton.shouldBe(visible).click();
+        regionModal.shouldBe(visible);
+        return this;
+    }
+
+    public FinalPage chooseDifferentRegion(String regionName) {
+        modal.shouldBe(visible);
+        regionListBaseButton
+                .findBy(text(regionName))
+                .click();
+        return this;
+    }
+
+    public FinalPage openTheShoppingCart() {
+        shoppingCart.shouldBe(visible).click();
+        sleep(2000);
+        return this;
+    }
+
+    public FinalPage modalCheckout() {
+        modalCheckoutBody.pressEscape();
+        modalCheckoutBody.pressEscape();
+        modalCheckoutBody.pressEscape();
+        return this;
+    }
+
+    public FinalPage deleteProduct(String buttonName) {
+        modalDelete.shouldBe(visible);
+        packageContainerDelete
+                .findBy(text(buttonName))
+                .click();
+        return this;
+    }
+
+    public FinalPage deleteContentScroll(String buttonScroll) {
+        modalContentScroll.shouldBe(visible);
+        buttonTextDelete.click();
+        return this;
+    }
+
+    public FinalPage typeOfNuts(String buttonNuts) {
+        checkboxList.scrollIntoView(true);
+        checkboxSeoLinkNuts
+                .findBy(text(buttonNuts))
+                .click();
+        System.out.println();
+        return this;
+    }
+
+    public FinalPage choosingBrand(String buttonBrand) {
+        checkboxList.scrollIntoView(true);
+        choosingSeoLinkBrand
+                .findBy(text(buttonBrand))
+                .click();
+        System.out.println();
+        return this;
+    }
 }
 
 
