@@ -39,25 +39,28 @@
 -  Смена региона доставки
 -  Тест на проверку удаления товара из корзины
 -  Тест для проверки поиска с фильтром на сайте
+-  Негативный сценарий — поиск несуществующего товара
+-  Проверка основных элементов на странице
 
 
-##  Локальный запуск тестов в Idea
+##  Команда для запуска тестов
 ```
 gradle clean tests_test
 ```
 
 <a id="jenkins-build"></a>
-## Сборка в Jenkins
 
-[Сборка в Jenkins](https://jenkins.autotests.cloud/job/038-kostyukova_ea-Jenkins-final-project-ui/)
+## [Сборка в Jenkins](https://jenkins.autotests.cloud/job/038-kostyukova_ea-Jenkins-final-project-ui/)
 
 
 ## Allure Report
 <p align="center">  
-<img title="Allure TestOps Dashboard" src="files/images/AllureReportUI_1.jpg" width="791">
-<img title="Allure TestOps Dashboard" src="files/images/AllureReportUI_2.jpg" width="791">  
+<img title="Allure TestOps Dashboard" src="files/images/AllureReport_1.jpg" width="791">
+<img title="Allure TestOps Dashboard" src="files/images/AllureReport_2.jpg" width="791">  
 </p>  
 
 ## Уведомления о результатах тестов в Telegram
+
+После завершения сборки специальный бот, созданный в <code>Telegram</code>, автоматически обрабатывает и отправляет сообщение с отчетом о прогоне тестов.
 
 ## Видео примера запуска тестов Selenoid

@@ -1,7 +1,6 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import io.qameta.allure.*;
 import pages.FinalPage;
 import pages.ResultComponent;
 
@@ -24,7 +23,7 @@ public class FinalPageTest extends TestBase {
             finalPage.setInputSearch();
         });
 
-        step("Вводим слово для поиска Сливки", () -> {
+        step("Вводим слово для поиска", () -> {
             finalPage.sharedInputSearch("Сливки");
         });
 
@@ -33,7 +32,7 @@ public class FinalPageTest extends TestBase {
         });
 
         step("Проверяем результат", () -> {
-            resultComponent.shouldBe();
+            resultComponent.shouldDisplayProducts();
             resultComponent.findInCards("Сливки");
         });
     }
@@ -49,8 +48,8 @@ public class FinalPageTest extends TestBase {
             finalPage.setInputSearch();
         });
 
-        step("Вводим слово для поиска Шоколад", () -> {
-            finalPage.sharedInputSearch("Шоколад");
+        step("Вводим слово для поиска", () -> {
+            finalPage.sharedInputSearch("Вода");
         });
 
         step("Кликаем по кнопке Найти", () -> {
@@ -66,16 +65,25 @@ public class FinalPageTest extends TestBase {
         });
 
         step("Указываем адрес доставки", () -> {
-            finalPage.setInputAddress("г.Москва, улица Петровка");
-            finalPage.setInputFlat("15");
-            finalPage.setInputEntrance("2");
-            finalPage.setInputFloor("9");
-            finalPage.setAddressButton();
+            if (finalPage.modalIsDisplayed()) {
+                finalPage.setInputAddress("г.Москва, улица Петровка, 2");
+                finalPage.setInputFlat("15");
+                finalPage.setInputEntrance("2");
+                finalPage.setInputFloor("9");
+                finalPage.setAddressButton();
+            }
+        });
+
+        step("Открываем корзину", () -> {
+            finalPage.openTheShoppingCart();//открываем корзину
+        });
+
+        step("Закрываем модальное окно", () -> {
+            finalPage.modalCheckout();
         });
 
         step("Проверяем наличие товара в корзине", () -> {
-            resultComponent.clickCartIcon();
-            resultComponent.productItemCards("Шоколад");
+            resultComponent.productItemCards("Вода");
         });
     }
 
@@ -110,7 +118,7 @@ public class FinalPageTest extends TestBase {
             finalPage.setInputSearch();
         });
 
-        step("Вводим слово для поиска Шоколад", () -> {
+        step("Вводим слово для поиска", () -> {
             finalPage.sharedInputSearch("Шоколад");
         });
 
@@ -127,11 +135,13 @@ public class FinalPageTest extends TestBase {
         });
 
         step("Указываем адрес доставки", () -> {
-            finalPage.setInputAddress("г.Москва, улица Петровка");
-            finalPage.setInputFlat("15");
-            finalPage.setInputEntrance("2");
-            finalPage.setInputFloor("9");
-            finalPage.setAddressButton();
+            if (finalPage.modalIsDisplayed()) {
+                finalPage.setInputAddress("г.Москва, улица Петровка, 2");
+                finalPage.setInputFlat("15");
+                finalPage.setInputEntrance("2");
+                finalPage.setInputFloor("9");
+                finalPage.setAddressButton();
+            }
         });
 
         step("Открываем корзину", () -> {
@@ -147,7 +157,7 @@ public class FinalPageTest extends TestBase {
         });
 
         step("Закрываем подтверждение об удалении товара", () -> {
-            finalPage.deleteContentScroll("Да, удалить");
+            finalPage.deleteContentScroll();
         });
 
         step("Проверяем результат", () -> {
@@ -167,7 +177,7 @@ public class FinalPageTest extends TestBase {
             finalPage.setInputSearch();
         });
 
-        step("Вводим слово для поиска Орехи", () -> {
+        step("Вводим слово для поиска", () -> {
             finalPage.sharedInputSearch("Орехи");
         });
 
@@ -184,8 +194,51 @@ public class FinalPageTest extends TestBase {
         });
 
         step("Проверяем результат", () -> {
-            resultComponent.shouldBe();
+            resultComponent.shouldDisplayProducts();
             resultComponent.findInCards("Грецкий орех Семушка");
+        });
+    }
+
+    @Test
+    @DisplayName("Негативный сценарий — поиск несуществующего товара")
+    void searchNonExistentProduct() {
+        step("Открываем главную страницу", () -> {
+            finalPage.openPage("https://www.vprok.ru/");
+        });
+
+        step("Кликаем по полю поиска", () -> {
+            finalPage.setInputSearch();
+        });
+
+        step("Ввести заведомо несуществующий запрос", () -> {
+            finalPage.sharedInputSearch("kjfhuryfhdfjkh");
+        });
+
+        step("Кликаем по кнопке Найти", () -> {
+            finalPage.setSharedInputSearch();
+        });
+
+        step("Проверяем результат", () -> {
+            resultComponent.hasNoResultsMessage(" ничего не найдено");
+        });
+    }
+
+    @Test
+    @DisplayName("Проверка основных элементов на странице")
+    void loginTest() {
+        FinalPage finalPage = new FinalPage();
+
+        step("Открываем главную страницу", () -> {
+            finalPage.openPage("https://www.vprok.ru/");
+        });
+
+        step("Проверка наличия ключевых элементов", () -> {
+            resultComponent.keyElementsCatalog("Каталог");
+            resultComponent.keyElementsStocks("Акции");
+            resultComponent.keyElementsSearch();
+            resultComponent.keyElementsDelivery("Ближайшая доставка:");
+            resultComponent.keyElementsLogin();
+            resultComponent.keyElementsBasket();
         });
     }
 }

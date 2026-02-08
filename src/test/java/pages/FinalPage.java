@@ -20,6 +20,7 @@ public class FinalPage {
     private final SelenideElement cookieWindow = $(".CookiesAlert_policy__1ClsP");
     private final SelenideElement cookieButton = $(byText("Согласен"));
     private final SelenideElement inputAddress = $("input[name='address']");
+    private final SelenideElement addressModal = $(".UiModalContent_root__ZK8DC");
     private final SelenideElement suggestionsContainer = $(".InputAutocomplete_root__QyfaN");
     private final SelenideElement inputFlat = $("input[name='flat']");
     private final SelenideElement inputEntrance = $("input[name='entrance']");
@@ -71,6 +72,7 @@ public class FinalPage {
 
     public FinalPage setAddingProduct() {
         addingProduct.shouldBe(visible).click();
+        sleep(2000);
         return this;
     }
 
@@ -93,6 +95,7 @@ public class FinalPage {
 
     public FinalPage setInputFloor(String value) {
         inputFloor.setValue(value);
+        sleep(2000);
         return this;
     }
 
@@ -136,7 +139,7 @@ public class FinalPage {
         return this;
     }
 
-    public FinalPage deleteContentScroll(String buttonScroll) {
+    public FinalPage deleteContentScroll() {
         modalContentScroll.shouldBe(visible);
         buttonTextDelete.click();
         return this;
@@ -147,7 +150,6 @@ public class FinalPage {
         checkboxSeoLinkNuts
                 .findBy(text(buttonNuts))
                 .click();
-        System.out.println();
         return this;
     }
 
@@ -156,9 +158,13 @@ public class FinalPage {
         choosingSeoLinkBrand
                 .findBy(text(buttonBrand))
                 .click();
-        System.out.println();
         return this;
     }
+
+    public boolean modalIsDisplayed() {
+        return addressModal.isDisplayed();
+    }
+
 }
 
 
