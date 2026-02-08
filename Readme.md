@@ -62,5 +62,7 @@ gradle clean tests_test
 ## Уведомления о результатах тестов в Telegram
 
 После завершения сборки специальный бот, созданный в <code>Telegram</code>, автоматически обрабатывает и отправляет сообщение с отчетом о прогоне тестов.
-
+<p align="center">
+<img title="Allure TestOps Dashboard" src="files/images/TelegramResults.jpg" width="791">  
+</p>  
 ## Видео примера запуска тестов Selenoid
