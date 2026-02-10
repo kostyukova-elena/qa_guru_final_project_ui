@@ -45,9 +45,3 @@ tasks.withType(Test).configureEach {
         }
     }
 }
-
-tasks.register('tests_test', Test) {
-    useJUnitPlatform {
-        includeTags("tests")
-    }
-}

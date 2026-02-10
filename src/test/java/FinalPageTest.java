@@ -1,12 +1,10 @@
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.FinalPage;
 import pages.ResultComponent;
 
 import static io.qameta.allure.Allure.step;
 
-@Tag("tests")
 public class FinalPageTest extends TestBase {
 
     FinalPage finalPage = new FinalPage();
@@ -14,7 +12,7 @@ public class FinalPageTest extends TestBase {
 
     @Test
     @DisplayName("Тест для проверки строки поиска на сайте")
-    void productSearch() {
+    void productSearchTest() {
         step("Открываем главную страницу", () -> {
             finalPage.openPage("https://www.vprok.ru/");
         });
@@ -39,7 +37,7 @@ public class FinalPageTest extends TestBase {
 
     @Test
     @DisplayName("Тест на проверку добавления товара в корзину")
-    void AddingAnItemToTheCart() {
+    void addingAnItemToTheCartTest() {
         step("Открываем главную страницу", () -> {
             finalPage.openPage("https://www.vprok.ru/");
         });
@@ -89,7 +87,7 @@ public class FinalPageTest extends TestBase {
 
     @Test
     @DisplayName("Смена региона доставки")
-    void shouldChangeRegion() {
+    void shouldChangeRegionTest() {
         step("Открываем главную страницу", () -> {
             finalPage.openPage("https://www.vprok.ru/");
         });
@@ -109,7 +107,7 @@ public class FinalPageTest extends TestBase {
 
     @Test
     @DisplayName("Тест на проверку удаления товара из корзины")
-    void deletingFromCart() {
+    void deletingFromCartTest() {
         step("Открываем главную страницу", () -> {
             finalPage.openPage("https://www.vprok.ru/");
         });
@@ -168,7 +166,7 @@ public class FinalPageTest extends TestBase {
 
     @Test
     @DisplayName("Тест для проверки поиска с фильтром на сайте")
-    void productSearchFilter() {
+    void productSearchFilterTest() {
         step("Открываем главную страницу", () -> {
             finalPage.openPage("https://www.vprok.ru/");
         });
@@ -190,18 +188,18 @@ public class FinalPageTest extends TestBase {
         });
 
         step("Выбираем бренд", () -> {
-            finalPage.choosingBrand("Семушка");
+            finalPage.choosingBrand("Маркет Перекресток");
         });
 
         step("Проверяем результат", () -> {
             resultComponent.shouldDisplayProducts();
-            resultComponent.findInCards("Грецкий орех Семушка");
+            resultComponent.findInCards("Грецкий орех Маркет Перекресток");
         });
     }
 
     @Test
     @DisplayName("Негативный сценарий — поиск несуществующего товара")
-    void searchNonExistentProduct() {
+    void searchNonExistentProductTest() {
         step("Открываем главную страницу", () -> {
             finalPage.openPage("https://www.vprok.ru/");
         });
