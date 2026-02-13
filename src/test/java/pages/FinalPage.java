@@ -160,11 +160,6 @@ public class FinalPage {
                 .click();
         return this;
     }
-
-    public boolean modalIsDisplayed() {
-        return addressModal.isDisplayed();
-    }
-
 }
 
 

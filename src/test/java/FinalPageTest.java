@@ -63,13 +63,11 @@ public class FinalPageTest extends TestBase {
         });
 
         step("Указываем адрес доставки", () -> {
-            if (finalPage.modalIsDisplayed()) {
                 finalPage.setInputAddress("г.Москва, улица Петровка, 2");
                 finalPage.setInputFlat("15");
                 finalPage.setInputEntrance("2");
                 finalPage.setInputFloor("9");
                 finalPage.setAddressButton();
-            }
         });
 
         step("Открываем корзину", () -> {
@@ -133,13 +131,11 @@ public class FinalPageTest extends TestBase {
         });
 
         step("Указываем адрес доставки", () -> {
-            if (finalPage.modalIsDisplayed()) {
                 finalPage.setInputAddress("г.Москва, улица Петровка, 2");
                 finalPage.setInputFlat("15");
                 finalPage.setInputEntrance("2");
                 finalPage.setInputFloor("9");
                 finalPage.setAddressButton();
-            }
         });
 
         step("Открываем корзину", () -> {
